@@ -1,39 +1,56 @@
 var express = require('express');
 var url = require('url');
 var router = express.Router();
-var MongoClient = require('mongodb').MongoClient,
- assert = require('assert');
+var db = global.db;
+
  
-// Connection URL 
-var url = 'mongodb://localhost:27017/PackageManager';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    res.render('index.html');
+});
+router.get('/getUsers', function(req, res) {
     //res.render('index.html');
-
-    MongoClient.connect(url, function(err, db) {
-        assert.equal(null, err);
-        console.log("Connected correctly to server");
-       
-        
+   
+        var emailid = '';
+        var password = '';
         var collection = db.collection('users');
         
         emailid = req.query.email;
         password = req.query.password;
-        collection.find({"email":emailid,"password":password}).toArray(function(err, docs) {
+        var json = collection.find({"email":emailid,"password":password},{ limit : 1 },function(e,docs){
+           // res.end(JSON.stringify({ status: docs}));
+           console.log(docs);
             if(docs.length > 0){
-                res.end(JSON.stringify(docs));
+                res.json({user:docs,status:true});
             }
             else{
-                res.end(JSON.stringify("No User"))
+               res.json({status:false});
             }
+        db.close();    
         });
-
-        db.close();
+        
        
-     });
-
-    res.end();
+});
+router.get('/getControlSettings', function(req, res) {
+    
+    var controls = '';
+    
+    var collection = db.collection('controls');
+    controls = req.query.control;
+    var json = collection.find({"name":controls},function(e,docs){
+       
+        console.log(docs);
+        if(docs.length > 0){
+            res.json({details:docs,status:true});
+        }
+        else{
+            res.json({status:false});
+        }
+    db.close();    
+    });
+        
+       
 });
  
 module.exports = router;

@@ -16,13 +16,11 @@
                             <div class="form-group">
                                 <label class="control-label" for="password">Password</label>
                                 <input [(ngModel)]="user.password" type="password" placeholder="******" required="" value="" name="password" id="password" class="form-control validate">
-                                <span class="help-block small">Yur strong password</span>
+                                <span class="help-block small">Your strong password</span>
                             </div>
-                            <div class="checkbox">
-                                <input type="checkbox" class="i-checks" checked>
-                                    Remember login
-                                <p class="help-block small">(if this is a private computer)</p>
-                            </div>
+                           
+                            <p class="help-block small errorMsg">{{errorMsg}}</p>
+                           
                             <button (click)="login()"  class="btn btn-success btn-block">Login</button>
                             <!--<a class="btn btn-default btn-block" href="#">Register</a>-->
                         </form>

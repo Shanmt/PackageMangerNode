@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {AuthenticationService, User} from './authentication.service'
+import {AuthenticationService} from './authentication.service'
 
 @Component({
     selector: 'login-form',
@@ -12,10 +12,10 @@ export class LoginComponent {
 
     public user = new User('','');
     public errorMsg = '';
-
+    
     constructor(
         private _service:AuthenticationService) {
-            console.log('Tseteeeeeeeeeeeeeeeeeeeeee');
+           
         }
 
     login() {

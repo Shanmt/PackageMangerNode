@@ -12,3 +12,6 @@
 .hpanel .nopadding{
     padding: 0px !important;
 }
+.errorMsg{
+	color: red;
+}

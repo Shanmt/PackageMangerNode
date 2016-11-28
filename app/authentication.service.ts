@@ -1,5 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {Router} from 'angular2/router';
+import {Http} from 'angular2/http';
 
 export class User {
   constructor(
@@ -10,16 +11,12 @@ export class User {
     ) { }
 }
 
-var users = [
-  new User('admin@admin.com','adm9','Admin'),
-  new User('user1@gmail.com','a23','Shan')
-];
 
 @Injectable()
 export class AuthenticationService {
 
   constructor(
-    private _router: Router){}
+    private _router: Router, private http:Http){}
 
   logout() {
     localStorage.removeItem("user");
@@ -27,14 +24,25 @@ export class AuthenticationService {
   }
 
   login(user){
-    var authenticatedUser = users.find(u => u.email === user.email);
+    this.http.get('http://localhost:8000/getUsers?email='+user.email+'&password='+user.password).subscribe(
+      response => {
+        
+        
+        if(response.json().status){
+            
+            localStorage.setItem("user", JSON.stringify(response.json().user[0])) 
+            this._router.navigate(['Home']);      
+            return true;  
+        }
+        
+      },
+      error => {
+          alert('Wrong Email or Password');
+          console.log(error.text());
+         
+      }
+    ); 
     
-    if (authenticatedUser){
-      console.log(authenticatedUser);
-      localStorage.setItem("user", JSON.stringify(authenticatedUser));
-      this._router.navigate(['Home']);      
-      return true;
-    }
     return false;
 
   }

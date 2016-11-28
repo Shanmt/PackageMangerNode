@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {ControlsComponent} from './controls.component';
 import {AuthenticationService} from './authentication.service';
+import {Http} from 'angular2/http';
 
 
 @Component({
@@ -12,16 +13,24 @@ import {AuthenticationService} from './authentication.service';
 })
 
 export class HeaderComponent{
-    LoginName;
+    LoginUserName;
     constructor(
-        private _service:AuthenticationService){
+        private _service:AuthenticationService, private http:Http){
            var userdetails = localStorage.getItem("user"); 
-           var user = JSON.parse(userdetails);
+           
+           if(userdetails){
+             var user = JSON.parse(userdetails);
+             this.LoginUserName = user.name;
+           }
+           else{
+             this.LoginUserName = "User";
+           }
           
                       
         }
 
     ngOnInit(){
+       
         this._service.checkCredentials();
     }
 
