@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map', 'rxjs/add/operator/catch'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -19,14 +19,16 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
             },
             function (http_1_1) {
                 http_1 = http_1_1;
-            }],
+            },
+            function (_1) {},
+            function (_2) {}],
         execute: function() {
             ControlService = (function () {
                 function ControlService(http) {
                     this.http = http;
                 }
                 ControlService.prototype.getControlSettings = function (controls) {
-                    console.log(this.http.get('http://localhost:8000/getControlSettings?control=' + controls).map(function (res) { return res.json(); }));
+                    return this.http.get('http://localhost:8000/getControlSettings?control=' + controls).map(function (res) { return res.json().details[0]; });
                 };
                 ControlService = __decorate([
                     core_1.Injectable(), 
@@ -39,4 +41,4 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1, context_
     }
 });
 
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbnRyb2xzLnNlcnZpY2UudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7WUFJQTtnQkFFSSx3QkFBb0IsSUFBVTtvQkFBVixTQUFJLEdBQUosSUFBSSxDQUFNO2dCQUU5QixDQUFDO2dCQUVELDJDQUFrQixHQUFsQixVQUFtQixRQUFRO29CQUN6QixPQUFPLENBQUMsR0FBRyxDQUFFLElBQUksQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLG1EQUFtRCxHQUFDLFFBQVEsQ0FBQyxDQUFDLEdBQUcsQ0FBQyxVQUFDLEdBQVksSUFBSyxPQUFBLEdBQUcsQ0FBQyxJQUFJLEVBQUUsRUFBVixDQUFVLENBQUMsQ0FBRSxDQUFDO2dCQUMvSCxDQUFDO2dCQVRMO29CQUFDLGlCQUFVLEVBQUU7O2tDQUFBO2dCQVdiLHFCQUFDO1lBQUQsQ0FWQSxBQVVDLElBQUE7WUFWRCwyQ0FVQyxDQUFBIiwiZmlsZSI6ImNvbnRyb2xzLnNlcnZpY2UuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge0luamVjdGFibGV9IGZyb20gJ2FuZ3VsYXIyL2NvcmUnO1xyXG5pbXBvcnQge0h0dHAsUmVzcG9uc2V9IGZyb20gJ2FuZ3VsYXIyL2h0dHAnO1xyXG5cclxuQEluamVjdGFibGUoKVxyXG5leHBvcnQgY2xhc3MgQ29udHJvbFNlcnZpY2V7XHJcblxyXG4gICAgY29uc3RydWN0b3IocHJpdmF0ZSBodHRwOiBIdHRwKXtcclxuXHJcbiAgICB9XHJcblxyXG4gICAgZ2V0Q29udHJvbFNldHRpbmdzKGNvbnRyb2xzKXtcclxuICAgICAgY29uc29sZS5sb2coIHRoaXMuaHR0cC5nZXQoJ2h0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9nZXRDb250cm9sU2V0dGluZ3M/Y29udHJvbD0nK2NvbnRyb2xzKS5tYXAoKHJlczpSZXNwb25zZSkgPT4gcmVzLmpzb24oKSkgKTsgXHJcbiAgICB9XHJcblxyXG59Il19
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbnRyb2xzLnNlcnZpY2UudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztZQVFBO2dCQUVFLHdCQUFvQixJQUFVO29CQUFWLFNBQUksR0FBSixJQUFJLENBQU07Z0JBRTlCLENBQUM7Z0JBRUQsMkNBQWtCLEdBQWxCLFVBQW1CLFFBQVE7b0JBRXpCLE1BQU0sQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxtREFBbUQsR0FBRyxRQUFRLENBQUMsQ0FBQyxHQUFHLENBQUMsVUFBQSxHQUFHLElBQUksT0FBQSxHQUFHLENBQUMsSUFBSSxFQUFFLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxFQUFyQixDQUFxQixDQUFDLENBQUM7Z0JBR3pILENBQUM7Z0JBWkg7b0JBQUMsaUJBQVUsRUFBRTs7a0NBQUE7Z0JBY2IscUJBQUM7WUFBRCxDQWJBLEFBYUMsSUFBQTtZQWJELDJDQWFDLENBQUEiLCJmaWxlIjoiY29udHJvbHMuc2VydmljZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEluamVjdGFibGUgfSBmcm9tICdhbmd1bGFyMi9jb3JlJztcclxuaW1wb3J0IHsgSHR0cCwgUmVzcG9uc2UsIEhlYWRlcnMsIFJlcXVlc3RPcHRpb25zIH0gZnJvbSAnYW5ndWxhcjIvaHR0cCc7XHJcbmltcG9ydCB7IE9ic2VydmFibGUgfSBmcm9tICdyeGpzL1J4JztcclxuXHJcbmltcG9ydCAncnhqcy9hZGQvb3BlcmF0b3IvbWFwJztcclxuaW1wb3J0ICdyeGpzL2FkZC9vcGVyYXRvci9jYXRjaCc7XHJcblxyXG5ASW5qZWN0YWJsZSgpXHJcbmV4cG9ydCBjbGFzcyBDb250cm9sU2VydmljZSB7XHJcbiAgZ2V0U2V0dGluZ3NEZXRhaWxzO1xyXG4gIGNvbnN0cnVjdG9yKHByaXZhdGUgaHR0cDogSHR0cCkge1xyXG5cclxuICB9XHJcblxyXG4gIGdldENvbnRyb2xTZXR0aW5ncyhjb250cm9scykge1xyXG5cclxuICAgIHJldHVybiB0aGlzLmh0dHAuZ2V0KCdodHRwOi8vbG9jYWxob3N0OjgwMDAvZ2V0Q29udHJvbFNldHRpbmdzP2NvbnRyb2w9JyArIGNvbnRyb2xzKS5tYXAocmVzID0+IHJlcy5qc29uKCkuZGV0YWlsc1swXSk7XHJcbiAgICBcclxuXHJcbiAgfVxyXG5cclxufSJdfQ==

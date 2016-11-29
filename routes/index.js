@@ -38,9 +38,9 @@ router.get('/getControlSettings', function(req, res) {
     
     var collection = db.collection('controls');
     controls = req.query.control;
-    var json = collection.find({"name":controls},function(e,docs){
+    var json = collection.find({"name":controls},{ limit : 1 },function(e,docs){
        
-        console.log(docs);
+        
         if(docs.length > 0){
             res.json({details:docs,status:true});
         }

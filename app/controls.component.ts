@@ -8,9 +8,20 @@ import {ControlService} from './controls.service';
 })
 
 export class ControlsComponent{
-    constructor(private controlservice : ControlService){
-        
-    }
-    
-    this.controlservice.getControlSettings('text');
+    getSettingsDetails:string;
+    constructor(
+        private controlservice:ControlService) {
+           
+        }
+        getSettings(controls){
+            
+           this.controlservice.getControlSettings(controls).subscribe(
+               data => this.getSettingsDetails = data.fields,
+               error => console.log("Error HTTP GET Service"),
+               () => console.log("Job Done Get !")
+
+           );
+          
+        }
+    //this.controlservice.getControlSettings('text');
 }
